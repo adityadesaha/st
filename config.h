@@ -6,7 +6,8 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 //static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static char *font = "Cascadia Code PL:size=12";
+//static char *font = "Cascadia Code:size=14";
+static char *font = "Fira Code:size=12";
 static int borderpx = 2;
 
 /*
@@ -96,57 +97,53 @@ unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-//colorscheme: one light, base16
-#define base00 "#fafafa"
-#define base01 "#f0f0f1"
-#define base02 "#e5e5e6"
-#define base03 "#a0a1a7"
-#define base04 "#696c77"
-#define base05 "#383a42"
-#define base06 "#202227"
-#define base07 "#090a0b"
-#define base08 "#ca1243"
-#define base09 "#d75f00"
-#define base0A "#c18401"
-#define base0B "#50a14f"
-#define base0C "#0184bc"
-#define base0D "#4078f2"
-#define base0E "#a626a4"
-#define base0F "#986801"
-    base01,
-    base08,
-    base0B,
-    base0A,
-    base0D,
-    base0E,
-    base0C,
-    base05,
-    base03,
-    base09,
-    base01,
-    base02,
-    base04,
-    base06,
-    base0F,
-    base07,
-	[255] = 0,
 
-	/* more colors can be added after 255 to use with DefaultXX */
-    base05, // default fg
-	"#fafafa", // default bg
+  /* 8 normal colors */
+  [0] = "#151515", /* black   */
+  [1] = "#fb3a60", /* red     */
+  [2] = "#798555", /* green   */
+  [3] = "#846a42", /* yellow  */
+  [4] = "#42748e", /* blue    */
+  [5] = "#906898", /* magenta */
+  [6] = "#0d948a", /* cyan    */
+  [7] = "#d0d0d0", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#505050", /* black   */
+  [9]  = "#9f1f37", /* red     */
+  [10] = "#4e582f", /* green   */
+  [11] = "#775727", /* yellow  */
+  [12] = "#10587f", /* blue    */
+  [13] = "#883499", /* magenta */
+  [14] = "#09665f", /* cyan    */
+  [15] = "#f5f5f5", /* white   */
+
+  /* special colors */
+  [256] = "#f5f5f5", /* background */
+  [257] = "#303030", /* foreground */
 };
-
-float alpha = 1.0, alphaUnfocused = 0.8;
 
 /*
  * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
+ * foreground, background, cursor
  */
-unsigned int defaultfg = 256;
-unsigned int defaultbg = 0;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
-static unsigned int bg=0, bgUnfocused =0;
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+static unsigned int defaultcs = 257;
+static unsigned int defaultrcs = 256;
+
+/*
+ * Colors used, when the specific fg == defaultfg. So in reverse mode this
+ * will reverse too. Another logic would only make the simple feature too
+ * complex.
+ */
+static unsigned int defaultitalic = 7;
+static unsigned int defaultunderline = 7;
+
+
+float alpha = 1.0, alphaUnfocused = 0.8;
+
+static unsigned int bg=256,bgUnfocused=256;
 
 
 /*
@@ -184,6 +181,43 @@ static unsigned int defaultattr = 11;
  * modifier, set to 0 to not use it.
  */
 static uint forcemousemod = ShiftMask;
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+		{ "font",         STRING,  &font },
+		{ "color0",       STRING,  &colorname[0] },
+		{ "color1",       STRING,  &colorname[1] },
+		{ "color2",       STRING,  &colorname[2] },
+		{ "color3",       STRING,  &colorname[3] },
+		{ "color4",       STRING,  &colorname[4] },
+		{ "color5",       STRING,  &colorname[5] },
+		{ "color6",       STRING,  &colorname[6] },
+		{ "color7",       STRING,  &colorname[7] },
+		{ "color8",       STRING,  &colorname[8] },
+		{ "color9",       STRING,  &colorname[9] },
+		{ "color10",      STRING,  &colorname[10] },
+		{ "color11",      STRING,  &colorname[11] },
+		{ "color12",      STRING,  &colorname[12] },
+		{ "color13",      STRING,  &colorname[13] },
+		{ "color14",      STRING,  &colorname[14] },
+		{ "color15",      STRING,  &colorname[15] },
+		{ "background",   STRING,  &colorname[256] },
+		{ "foreground",   STRING,  &colorname[257] },
+		{ "cursorColor",  STRING,  &colorname[258] },
+		{ "termname",     STRING,  &termname },
+		{ "shell",        STRING,  &shell },
+		{ "minlatency",   INTEGER, &minlatency },
+		{ "maxlatency",   INTEGER, &maxlatency },
+		{ "blinktimeout", INTEGER, &blinktimeout },
+		{ "bellvolume",   INTEGER, &bellvolume },
+		{ "tabspaces",    INTEGER, &tabspaces },
+		{ "borderpx",     INTEGER, &borderpx },
+		{ "cwscale",      FLOAT,   &cwscale },
+		{ "chscale",      FLOAT,   &chscale },
+};
+
 
 /*
  * Internal mouse shortcuts.
