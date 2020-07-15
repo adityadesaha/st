@@ -141,7 +141,7 @@ static unsigned int defaultitalic = 7;
 static unsigned int defaultunderline = 7;
 
 
-float alpha = 1.0, alphaUnfocused = 0.8;
+float alpha = 1.0, alphaUnfocused = 0.5;
 
 static unsigned int bg=256,bgUnfocused=256;
 
