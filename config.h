@@ -7,7 +7,8 @@
  */
 //static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 //static char *font = "Cascadia Code:size=14";
-static char *font = "Fira Code:size=12";
+//static char *font = "FiraCode Nerd Font:size=12";
+static char *font = "DejaVu Sans Mono:size=12";
 static int borderpx = 2;
 
 /*
