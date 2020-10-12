@@ -11,6 +11,9 @@
 //static char *font = "DejaVu Sans Mono:size=12";
 //static char *font = "Inconsolata";
 static char *font = "JetBrainsMono Nerd Font:size=16";
+//static char *font = "Ac437 IBM PGC:size=20";
+//static char *font = " Fixedsys Excelsior:size=17";
+
 static int borderpx = 2;
 
 /*
@@ -144,7 +147,7 @@ static unsigned int defaultitalic = 7;
 static unsigned int defaultunderline = 7;
 
 
-float alpha = 1.0, alphaUnfocused = 0.5;
+float alpha = 1.0, alphaUnfocused = 1.0;
 
 static unsigned int bg=256,bgUnfocused=256;
 
